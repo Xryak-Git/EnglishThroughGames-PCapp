@@ -1,0 +1,8 @@
+.idea
+venv
+output
+input
+
+__pycache__/
+.vscode/
+gamelearning/database/
