@@ -15,12 +15,21 @@ class Engine:
     _settings: Settings
     _base_dir: Path
 
+    _video_frames_path: Path
+    _images_path: Path
+    _images: list[HandeledImage]
+
+    _ih: ImageHandler
+
     def __init__(self, base_dir: Path):
         self._base_dir = base_dir
         self._settings = Settings(self._base_dir / SETTINGS_FILE)
 
         self._video_frames_path = self._settings.user_dir / "video_frames"
         self._images_path = self._settings.user_dir / "images"
+        self._images = []
+
+        self._ih = ImageHandler()
 
         self._make_user_dir()
 
@@ -33,6 +42,12 @@ class Engine:
 
         video_handler.extract_frames()
         video_handler.release_capture()
+
+
+    def load_images(self):
+        il = ImageLoader()
+        il.load_images_path_and_name(path=str(self._video_frames_path))
+        self._images = il.get_image_objects()
 
     def _make_user_dir(self):
         Path(self._video_frames_path).mkdir(parents=True, exist_ok=True)

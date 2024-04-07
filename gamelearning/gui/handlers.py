@@ -68,7 +68,7 @@ class GUIHandler:
 
         if all(param for param in video_params.values()):
             self._engine.video_to_frames(video_params)
-            print(video_params)
+            self._engine.load_images()
 
             dpg.configure_item(item_id["input_text"]["video_params_error"], show=False)
         else:
