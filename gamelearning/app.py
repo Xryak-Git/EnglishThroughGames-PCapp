@@ -1,8 +1,12 @@
 from gui import GUI
+from engine import Engine
+from gui.handlers import GUIHandler
 
 
 def main():
-    gui = GUI()
+    engine = Engine()
+    handler = GUIHandler(engine)
+    gui = GUI(handler)
     gui.run()
 
 

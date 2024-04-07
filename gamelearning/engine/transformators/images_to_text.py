@@ -19,8 +19,8 @@ class ImageToText(ABC):
         raise NotImplementedError()
 
 
-global global_ocr
-global_ocr = PaddleOCR(use_angle_cls=True, lang='en')
+# global global_ocr
+# global_ocr = PaddleOCR(use_angle_cls=True, lang='en')
 
 
 class PaddleModel(ImageToText):
