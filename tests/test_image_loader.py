@@ -2,7 +2,7 @@ import unittest
 import os
 import re
 
-from gamelearning.handlers import ImageLoader
+from gamelearning.engine.handlers import ImageLoader
 from gamelearning.config import *
 
 

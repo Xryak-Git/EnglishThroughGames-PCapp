@@ -3,7 +3,7 @@ import pickle
 import os
 
 from gamelearning.config import PICKLE_OBJECTS_DIR
-from gamelearning.handlers import Deduplicator
+from gamelearning.engine.handlers import Deduplicator
 
 
 class TestDeduplicator(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
 import os
 
-from gamelearning.transformators import VideoToImages
+from gamelearning.engine.transformators import VideoToImages
 from gamelearning.config import *
 
 
