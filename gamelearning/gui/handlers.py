@@ -3,7 +3,7 @@ import dearpygui.dearpygui as dpg
 from gamelearning.engine import Engine
 
 from .uids import item_id
-from .settings import Settings, DEFAULT_PORCESSES
+from gamelearning.settings import Settings, DEFAULT_PORCESSES
 
 
 class GUIHandler:
@@ -67,7 +67,9 @@ class GUIHandler:
         }
 
         if all(param for param in video_params.values()):
+            self._engine.video_to_frames(video_params)
             print(video_params)
+
             dpg.configure_item(item_id["input_text"]["video_params_error"], show=False)
         else:
             dpg.configure_item(item_id["input_text"]["video_params_error"], show=True)

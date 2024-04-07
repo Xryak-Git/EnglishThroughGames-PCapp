@@ -1,17 +1,44 @@
 from typing import List
 import pickle
 import time
+from pathlib import Path
+
+from gamelearning.types import HandeledImage
+from gamelearning.config import *
+from gamelearning.settings import Settings, SETTINGS_FILE
 
 from .handlers import ImageHandler, ImageLoader, Deduplicator
 from .transformators import PaddleModel, VideoToImages
-from gamelearning.types import HandeledImage
-from gamelearning.config import *
 
 
 class Engine:
+    _settings: Settings
+    _base_dir: Path
 
-    def __init__(self):
-        ...
+    def __init__(self, base_dir: Path):
+        self._base_dir = base_dir
+        self._settings = Settings(self._base_dir / SETTINGS_FILE)
+
+        self._video_frames_path = self._settings.user_dir / "video_frames"
+        self._images_path = self._settings.user_dir / "images"
+
+        self._make_user_dir()
+
+    def video_to_frames(self, video_params: dict):
+        video_handler = VideoToImages(video_path=video_params["video_path"],
+                                      output_dir=str(self._video_frames_path),
+                                      firts_seconds_to_skip=int(video_params["begining_skip"]),
+                                      last_seconds_to_skip=int(video_params["end_skip"]),
+                                      every_n_seconds=int(video_params["every_n_second"]))
+
+        video_handler.extract_frames()
+        video_handler.release_capture()
+
+    def _make_user_dir(self):
+        Path(self._video_frames_path).mkdir(parents=True, exist_ok=True)
+        Path(self._images_path).mkdir(parents=True, exist_ok=True)
+
+
 
 
 def run():

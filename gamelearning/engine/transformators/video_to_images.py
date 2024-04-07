@@ -10,23 +10,23 @@ class VideoToImages:
                  video_path: str,
                  output_dir: str,
                  firts_seconds_to_skip: int = 0,
-                 last_second_to_skip: int = 0,
+                 last_seconds_to_skip: int = 0,
                  every_n_seconds: int = 1
                  ):
 
         assert os.path.exists(video_path), "Не найдено видео"
         assert os.path.isdir(output_dir), "Каталог сохранения кадров не найден"
         assert isinstance(firts_seconds_to_skip, int)
-        assert isinstance(last_second_to_skip, int)
+        assert isinstance(last_seconds_to_skip, int)
         assert isinstance(every_n_seconds, int)
-        assert all(map(lambda x: x >= 0, [firts_seconds_to_skip, last_second_to_skip]))
+        assert all(map(lambda x: x >= 0, [firts_seconds_to_skip, last_seconds_to_skip]))
         assert every_n_seconds >= 1
 
         self.video_path = video_path
         self._output_dir = output_dir
 
         self._firts_seconds_to_skip = firts_seconds_to_skip
-        self._last_second_to_skip = last_second_to_skip
+        self._last_second_to_skip = last_seconds_to_skip
         self._every_n_seconds = every_n_seconds
 
         self._fps = None

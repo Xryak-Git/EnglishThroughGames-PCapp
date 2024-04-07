@@ -42,7 +42,7 @@ class TestVideoToImages(unittest.TestCase):
             video_path=self._legend_of_heroes_video,
             output_dir=str(VIDEO_OUTPUT),
             firts_seconds_to_skip=2,
-            last_second_to_skip=2,
+            last_seconds_to_skip=2,
             every_n_seconds=2
         )
         vh.extract_frames()

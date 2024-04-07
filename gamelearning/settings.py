@@ -7,10 +7,10 @@ from pathlib import Path
 LOG = logging.getLogger(__name__)
 LOG_FILE = "log.txt"
 
-DEFAULT_USER_DIR = Path(__file__).resolve().parent
+DEFAULT_USER_DIR = Path(__file__).resolve().parent.parent
 DEFAULT_PORCESSES = 4
 
-SETTINGS_FILE = "../settings.ini"
+SETTINGS_FILE = "settings.ini"
 SETTINGS_FILE_TEMPLATE = """
 [user_data]
 directory={}

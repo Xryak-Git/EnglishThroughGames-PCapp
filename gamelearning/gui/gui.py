@@ -6,10 +6,11 @@ dpg.configure_viewport(0, x_pos=300, y_pos=300, width=1000, height=800)
 
 from .uids import item_id
 from .handlers import GUIHandler
-from .settings import Settings, SETTINGS_FILE, DEFAULT_USER_DIR
+from gamelearning.settings import Settings, SETTINGS_FILE, DEFAULT_USER_DIR
 
 
 settings_file = Settings(DEFAULT_USER_DIR / SETTINGS_FILE)
+print(DEFAULT_USER_DIR)
 
 
 class GUI:
