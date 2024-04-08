@@ -4,7 +4,7 @@ import unittest
 import pickle
 import os
 
-from gamelearning.types import HandeledImage
+from gamelearning.engine.types import HandeledImage
 from gamelearning.engine.handlers import ImageHandler
 from gamelearning.config import *
 

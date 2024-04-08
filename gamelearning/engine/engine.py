@@ -1,19 +1,19 @@
 from typing import List
 import pickle
-import time
-from pathlib import Path
+import os
 
-from gamelearning.types import HandeledImage
+from gamelearning.engine.types import HandeledImage
 from gamelearning.config import *
 from gamelearning.settings import Settings, SETTINGS_FILE
 
-from .handlers import ImageHandler, ImageLoader, Deduplicator
-from .transformators import PaddleModel, VideoToImages
+from .handlers import ImageHandler, ImageLoader
+from .transformators import VideoToImages
+from .database import *
 
 
 class Engine:
-    _settings: Settings
     _base_dir: Path
+    _settings: Settings
 
     _video_frames_path: Path
     _images_path: Path
@@ -24,8 +24,10 @@ class Engine:
     def __init__(self, base_dir: Path):
         self._base_dir = base_dir
         self._settings = Settings(self._base_dir / SETTINGS_FILE)
+        self._db = db
 
-        self._video_frames_path = self._settings.user_dir / "video_frames"
+
+        self._video_frames_path = self._settings.user_dir / "tmp"
         self._images_path = self._settings.user_dir / "images"
         self._images = []
 
@@ -34,6 +36,8 @@ class Engine:
         self._make_user_dir()
 
     def video_to_frames(self, video_params: dict):
+        self._delete_files_in(str(self._video_frames_path))
+
         video_handler = VideoToImages(video_path=video_params["video_path"],
                                       output_dir=str(self._video_frames_path),
                                       firts_seconds_to_skip=int(video_params["begining_skip"]),
@@ -42,6 +46,23 @@ class Engine:
 
         video_handler.extract_frames()
         video_handler.release_capture()
+
+        game_title = video_params["game_title"]
+
+        game = Games(title=game_title)
+        id = game.save()
+
+        print(id)
+
+
+
+
+    @staticmethod
+    def _delete_files_in(path: str):
+        for filename in os.listdir(path):
+            file_path = os.path.join(path, filename)
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
 
 
     def load_images(self):

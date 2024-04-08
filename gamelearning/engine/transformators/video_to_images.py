@@ -1,6 +1,8 @@
+import uuid
+import os
+
 from numpy import ndarray
 import cv2
-import os
 
 from gamelearning.config import LEGEND_OF_HEROES_VIDEO, VIDEO_OUTPUT
 
@@ -68,7 +70,7 @@ class VideoToImages:
         print("Capture released")
 
     def _save(self, frame: ndarray, name_postfix: int):
-        cv2.imwrite(rf'{self._output_dir}\frame_{name_postfix}.jpg', frame)
+        cv2.imwrite(rf'{self._output_dir}\frame_{name_postfix}_{uuid.uuid4()}.jpg', frame)
 
 
 def main():

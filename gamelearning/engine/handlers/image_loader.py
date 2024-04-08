@@ -3,7 +3,7 @@ import numpy as np
 import os
 import re
 
-from gamelearning.types import HandeledImage
+from gamelearning.engine.types import HandeledImage
 
 
 class ImageLoader:

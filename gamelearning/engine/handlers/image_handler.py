@@ -6,7 +6,7 @@ import os
 
 
 from gamelearning.config import FONT_PATH
-from gamelearning.types import HandeledImage
+from gamelearning.engine.types import HandeledImage
 
 
 class ImageAssignmentExeption(Exception):

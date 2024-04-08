@@ -1,7 +1,7 @@
 from thefuzz import fuzz
 from typing import List
 
-from gamelearning.types import HandeledImage
+from gamelearning.engine.types import HandeledImage
 from gamelearning.config import FUZZ_PARTICAL_RATIO
 
 

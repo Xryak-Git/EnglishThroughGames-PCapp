@@ -54,23 +54,26 @@ class GUIHandler:
             dpg.set_value(sender, "")
 
     def to_frames(self, sender: str, value: str):
+        game_title = dpg.get_value(item_id["labels"]["game_title"])
         video_path = dpg.get_value(item_id["labels"]["video_path"])
         begining_skip = dpg.get_value(item_id["input_text"]["begining_skip"])
         end_skip = dpg.get_value(item_id["input_text"]["end_skip"])
         every_n_second = dpg.get_value(item_id["input_text"]["every_n_second"])
 
         video_params = {
+            "game_title": game_title,
             "video_path": video_path,
             "begining_skip": begining_skip,
             "end_skip": end_skip,
             "every_n_second": every_n_second,
         }
 
-        if all(param for param in video_params.values()):
+        if game_title != "" and all(param for param in video_params.values()):
+            dpg.configure_item(item_id["input_text"]["video_params_error"], show=False)
+
             self._engine.video_to_frames(video_params)
             self._engine.load_images()
 
-            dpg.configure_item(item_id["input_text"]["video_params_error"], show=False)
         else:
             dpg.configure_item(item_id["input_text"]["video_params_error"], show=True)
 

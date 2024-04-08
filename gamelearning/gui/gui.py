@@ -10,7 +10,6 @@ from gamelearning.settings import Settings, SETTINGS_FILE, DEFAULT_USER_DIR
 
 
 settings_file = Settings(DEFAULT_USER_DIR / SETTINGS_FILE)
-print(DEFAULT_USER_DIR)
 
 
 class GUI:
@@ -35,11 +34,6 @@ class GUI:
                     self._make_settings()
                     self._make_video_params()
 
-            dpg.add_button(tag=item_id["buttons"]["chose_video_path"], label="Chose video path",
-                           callback=self._show_video_chose_dialog, show=True)
-
-            dpg.add_input_text(tag=item_id["labels"]["video_path"], label="Video path",
-                               readonly=True, width=500)
 
     def _make_settings(self):
         dpg.add_menu_item(label="Settings", callback=lambda: dpg.show_item(settings))
@@ -60,12 +54,20 @@ class GUI:
 
         with dpg.window(tag=item_id["windows"]["video_params"],
                         show=False,
-                        width=600, height=200) as video_params:
-            dpg.add_button(tag=item_id["buttons"]["chose_video_path"], label="Chose video path",
-                           callback=self._show_video_chose_dialog, show=True)
+                        width=600, height=400) as video_params:
+            dpg.add_spacer(height=20)
+
+            dpg.add_input_text(tag=item_id["labels"]["game_title"], label="Game Title",
+                               hint="Input game title",
+                               width=250)
 
             dpg.add_input_text(tag=item_id["labels"]["video_path"], label="Video path",
                                readonly=True, width=500)
+
+            dpg.add_button(tag=item_id["buttons"]["chose_video_path"], label="Chose video path",
+                           callback=self._show_video_chose_dialog, show=True)
+
+            dpg.add_spacer(height=20)
 
             with dpg.group():
                 dpg.add_input_text(tag=item_id["input_text"]["begining_skip"],

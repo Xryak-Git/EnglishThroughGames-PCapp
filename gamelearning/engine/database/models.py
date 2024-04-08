@@ -1,5 +1,6 @@
 from .db import BaseModel
-from peewee import CharField, ForeignKeyField, TextField
+from peewee import CharField, ForeignKeyField, TextField, Model
+from playhouse.sqlite_ext import SqliteExtDatabase
 
 
 class Users(BaseModel):
@@ -10,6 +11,8 @@ class Games(BaseModel):
     title = CharField()
 
 
+
+
 class Videos(BaseModel):
     path = CharField()
 
@@ -17,10 +20,13 @@ class Videos(BaseModel):
     user_id = ForeignKeyField(Users, backref='users')
 
 
+
+
 class LearningWords(BaseModel):
     word_combination = CharField()
 
     user_id = ForeignKeyField(Users, backref='users')
+
 
 
 class Images(BaseModel):
@@ -32,6 +38,10 @@ class Images(BaseModel):
     game_id = ForeignKeyField(Games, backref='games')
 
 
+
+
 class LearningWordsImages(BaseModel):
     learning_word_id = ForeignKeyField(LearningWords, backref='learning_words')
     image_id = ForeignKeyField(Images, backref='images')
+
+

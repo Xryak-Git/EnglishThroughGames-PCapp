@@ -1,9 +1,8 @@
 from abc import ABC, abstractmethod
-from paddleocr import PaddleOCR
 from typing import List, Tuple
 
 from gamelearning.config import PROCESS_NUMBER
-from gamelearning.types import HandeledImage
+from gamelearning.engine.types import HandeledImage
 
 from multiprocessing import Pool
 

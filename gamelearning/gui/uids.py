@@ -13,6 +13,7 @@ item_id = {
 
     },
     "labels": {
+        "game_title": dpg.generate_uuid(),
         "video_path": dpg.generate_uuid(),
         "processes_number": dpg.generate_uuid(),
 

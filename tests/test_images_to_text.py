@@ -3,7 +3,7 @@ import pickle
 import os
 
 from gamelearning.engine.transformators import PaddleModel
-from gamelearning.types import HandeledImage
+from gamelearning.engine.types import HandeledImage
 from gamelearning.config import *
 
 
