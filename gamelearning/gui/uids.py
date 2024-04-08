@@ -20,7 +20,7 @@ item_id = {
     },
     "buttons": {
         "save_settings": dpg.generate_uuid(),
-        "to_frames": dpg.generate_uuid(),
+        "to_frames_press_button_processing": dpg.generate_uuid(),
         "chose_video_path": dpg.generate_uuid(),
     },
     "input_text": {

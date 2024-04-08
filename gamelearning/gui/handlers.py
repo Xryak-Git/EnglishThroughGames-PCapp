@@ -53,13 +53,19 @@ class GUIHandler:
         else:
             dpg.set_value(sender, "")
 
-    def to_frames(self, sender: str, value: str):
+    def to_frames_press_button_processing(self, sender: str, value: str):
+        video_params = self._extract_video_params()
+
+        if self._validate_params(video_params):
+            self._engine.video_to_frames(video_params)
+            self._engine.load_images()
+
+    def _extract_video_params(self):
         game_title = dpg.get_value(item_id["labels"]["game_title"])
         video_path = dpg.get_value(item_id["labels"]["video_path"])
         begining_skip = dpg.get_value(item_id["input_text"]["begining_skip"])
         end_skip = dpg.get_value(item_id["input_text"]["end_skip"])
         every_n_second = dpg.get_value(item_id["input_text"]["every_n_second"])
-
         video_params = {
             "game_title": game_title,
             "video_path": video_path,
@@ -67,15 +73,18 @@ class GUIHandler:
             "end_skip": end_skip,
             "every_n_second": every_n_second,
         }
+        return video_params
+
+    def _validate_params(self, video_params):
+        game_title = video_params["game_title"]
 
         if game_title != "" and all(param for param in video_params.values()):
             dpg.configure_item(item_id["input_text"]["video_params_error"], show=False)
-
-            self._engine.video_to_frames(video_params)
-            self._engine.load_images()
+            return True
 
         else:
             dpg.configure_item(item_id["input_text"]["video_params_error"], show=True)
+            return False
 
     def _processes_valid(self, processes: str):
         if processes.isnumeric() and 1 <= int(processes) <= 8:

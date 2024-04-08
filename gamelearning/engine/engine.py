@@ -26,7 +26,6 @@ class Engine:
         self._settings = Settings(self._base_dir / SETTINGS_FILE)
         self._db = db
 
-
         self._video_frames_path = self._settings.user_dir / "tmp"
         self._images_path = self._settings.user_dir / "images"
         self._images = []

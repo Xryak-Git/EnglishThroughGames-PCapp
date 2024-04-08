@@ -88,8 +88,8 @@ class GUI:
                                    hint="Must be positive integer",
                                    callback=self._h.set_positive_integer)
 
-            dpg.add_button(tag=item_id["buttons"]["to_frames"], label="To frames",
-                           callback=self._h.to_frames)
+            dpg.add_button(tag=item_id["buttons"]["to_frames_press_button_processing"], label="To frames",
+                           callback=self._h.to_frames_press_button_processing)
 
             dpg.add_input_text(tag=item_id["input_text"]["video_params_error"],
                                default_value="Not all params are correct",
