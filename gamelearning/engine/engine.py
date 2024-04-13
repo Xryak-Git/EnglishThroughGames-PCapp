@@ -46,15 +46,17 @@ class Engine:
         video_handler.extract_frames()
         video_handler.release_capture()
 
+        self._add_game_title_if_not_extists(video_params)
+
+    def _add_game_title_if_not_extists(self, video_params):
         game_title = video_params["game_title"]
+        game = Games.get_or_create(title=game_title)
+        print(int(game[0]))
 
-        game = Games(title=game_title)
-        id = game.save()
-
-        print(id)
-
-
-
+    def load_images(self):
+        il = ImageLoader()
+        il.load_images_path_and_name(path=str(self._video_frames_path))
+        self._images = il.get_image_objects()
 
     @staticmethod
     def _delete_files_in(path: str):
@@ -63,17 +65,9 @@ class Engine:
             if os.path.isfile(file_path):
                 os.unlink(file_path)
 
-
-    def load_images(self):
-        il = ImageLoader()
-        il.load_images_path_and_name(path=str(self._video_frames_path))
-        self._images = il.get_image_objects()
-
     def _make_user_dir(self):
         Path(self._video_frames_path).mkdir(parents=True, exist_ok=True)
         Path(self._images_path).mkdir(parents=True, exist_ok=True)
-
-
 
 
 def run():

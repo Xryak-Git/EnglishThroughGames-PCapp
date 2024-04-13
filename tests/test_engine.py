@@ -10,7 +10,7 @@ class TestImageHandler(unittest.TestCase):
 
     def test_video_to_frames(self):
         video_params = {
-            "game_title": "Legend_of_heroes",
+            "game_title": "PPek 1",
             "video_path": str(PROJECT_DIR / "Legend_of_heroes.mp4"),
             "begining_skip": 0,
             "end_skip": 0,
