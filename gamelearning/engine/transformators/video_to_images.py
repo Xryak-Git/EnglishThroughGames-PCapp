@@ -2,9 +2,11 @@ import uuid
 import os
 
 from numpy import ndarray
-import cv2
+
 
 from gamelearning.config import LEGEND_OF_HEROES_VIDEO, VIDEO_OUTPUT
+
+import cv2
 
 
 class VideoToImages:

@@ -12,14 +12,6 @@ from .database import *
 
 
 class Engine:
-    _base_dir: Path
-    _settings: Settings
-
-    _video_frames_path: Path
-    _images_path: Path
-    _images: list[HandeledImage]
-
-    _ih: ImageHandler
 
     def __init__(self, base_dir: Path):
         self._base_dir = base_dir
@@ -28,7 +20,7 @@ class Engine:
 
         self._video_frames_path = self._settings.user_dir / "tmp"
         self._images_path = self._settings.user_dir / "images"
-        self._images = []
+        self._images: list[HandeledImage] = []
 
         self._ih = ImageHandler()
 
@@ -48,15 +40,16 @@ class Engine:
 
         self._add_game_title_if_not_extists(video_params)
 
+    def load_images(self):
+        il = ImageLoader()
+        il.load_images_path_and_name(path=str(self._video_frames_path))
+        self._images = il.get_image_objects()
+
     def _add_game_title_if_not_extists(self, video_params):
         game_title = video_params["game_title"]
         game = Games.get_or_create(title=game_title)
         print(int(game[0]))
 
-    def load_images(self):
-        il = ImageLoader()
-        il.load_images_path_and_name(path=str(self._video_frames_path))
-        self._images = il.get_image_objects()
 
     @staticmethod
     def _delete_files_in(path: str):
