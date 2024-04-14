@@ -4,7 +4,7 @@ import os
 
 from gui import GUI
 from engine import Engine
-from gui.handlers import GUIHandler
+from gui.handlers import GUItoEngine
 from settings import DEFAULT_USER_DIR
 # from engine.database import *
 
@@ -16,7 +16,7 @@ def main():
     # print(db.get_tables())
 
     engine = Engine(DEFAULT_USER_DIR)
-    handler = GUIHandler(engine)
+    handler = GUItoEngine(engine)
     gui = GUI(handler)
     gui.run()
 

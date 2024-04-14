@@ -48,7 +48,7 @@ class Engine:
     def _add_game_title_if_not_extists(self, video_params):
         game_title = video_params["game_title"]
         game = Games.get_or_create(title=game_title)
-        print(int(game[0]))
+        print(game[0])
 
 
     @staticmethod

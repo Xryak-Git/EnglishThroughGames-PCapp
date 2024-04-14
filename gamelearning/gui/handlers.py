@@ -8,8 +8,8 @@ from gamelearning.settings import Settings, DEFAULT_PORCESSES
 
 class GUIHandler:
 
-    def __init__(self, engine: Engine):
-        self._engine = engine
+    def __init__(self):
+        ...
 
     def set_video_path(self, sender: str, app_data: dict):
         file_path = app_data["file_path_name"]
@@ -53,13 +53,6 @@ class GUIHandler:
         else:
             dpg.set_value(sender, "")
 
-    def to_frames_press_button_processing(self, sender: str, value: str):
-        video_params = self._extract_video_params()
-
-        if self._validate_params(video_params):
-            self._engine.video_to_frames(video_params)
-            self._engine.load_images()
-
     def _extract_video_params(self):
         game_title = dpg.get_value(item_id["labels"]["game_title"])
         video_path = dpg.get_value(item_id["labels"]["video_path"])
@@ -75,6 +68,11 @@ class GUIHandler:
         }
         return video_params
 
+    def _processes_valid(self, processes: str):
+        if processes.isnumeric() and 1 <= int(processes) <= 8:
+            return True
+        return False
+
     def _validate_params(self, video_params):
         game_title = video_params["game_title"]
 
@@ -86,7 +84,18 @@ class GUIHandler:
             dpg.configure_item(item_id["input_text"]["video_params_error"], show=True)
             return False
 
-    def _processes_valid(self, processes: str):
-        if processes.isnumeric() and 1 <= int(processes) <= 8:
-            return True
-        return False
+
+class GUItoEngine(GUIHandler):
+
+    def __init__(self, engine: Engine):
+        super().__init__()
+        self._engine = engine
+
+    def to_frames_press_button_processing(self, sender: str, value: str):
+        video_params = self._extract_video_params()
+
+        if self._validate_params(video_params):
+            self._engine.video_to_frames(video_params)
+            self._engine.load_images()
+
+
