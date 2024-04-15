@@ -95,6 +95,8 @@ class GUI:
                                show=False,
                                width=200)
 
+            self._make_popup_window()
+
     def _show_video_chose_dialog(self):
         if dpg.does_item_exist(item_id["file_dialogs"]["video_select"]):
             dpg.delete_item(item_id["file_dialogs"]["video_select"])
@@ -105,6 +107,16 @@ class GUI:
                              width=700, height=400,
                              callback=self._gui_handler.set_video_path):
             dpg.add_file_extension(".mp4", color=(150, 255, 150, 255), custom_text="[Video]")
+
+    def _make_popup_window(self):
+        with dpg.window(tag=item_id["windows"]["sucess_handle"], label="Sucess",
+                        modal=True, show=False, no_title_bar=True) as popup:
+            dpg.add_text("Video handle ended with sucess! " +
+                         "Do you want to continuee with images handle?")
+            dpg.add_separator()
+            with dpg.group(horizontal=True):
+                dpg.add_button(label="OK", width=75, callback=self._gui_to_engine.handle_images)
+                dpg.add_button(label="Cancel", width=75, callback=lambda: dpg.hide_item(popup))
 
 
 if __name__ == "__main__":

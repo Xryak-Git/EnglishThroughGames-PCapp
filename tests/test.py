@@ -2,25 +2,16 @@ import dearpygui.dearpygui as dpg
 
 dpg.create_context()
 
-
-def clipper_toggle(sender):
-    dpg.configure_item("table_clip", clipper=dpg.get_value(sender))
-
+with dpg.window(label="Delete Files", modal=True, show=False, tag="modal_id", no_title_bar=True):
+    dpg.add_text("All those beautiful files will be deleted.\nThis operation cannot be undone!")
+    dpg.add_separator()
+    dpg.add_checkbox(label="Don't ask me next time")
+    with dpg.group(horizontal=True):
+        dpg.add_button(label="OK", width=75, callback=lambda: dpg.configure_item("modal_id", show=False))
+        dpg.add_button(label="Cancel", width=75, callback=lambda: dpg.configure_item("modal_id", show=False))
 
 with dpg.window(label="Tutorial"):
-    dpg.add_checkbox(label="clipper", callback=clipper_toggle, default_value=True)
-
-    with dpg.table(header_row=False, tag="table_clip", clipper=True):
-
-        for i in range(5):
-            dpg.add_table_column()
-
-        for i in range(30000):
-            with dpg.table_row():
-                for j in range(5):
-                    dpg.add_text(f"Row{i} Column{j}")
-
-dpg.show_metrics()
+    dpg.add_button(label="Open Dialog", callback=lambda: dpg.configure_item("modal_id", show=True))
 
 dpg.create_viewport(title='Custom Title', width=800, height=600)
 dpg.setup_dearpygui()

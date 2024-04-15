@@ -5,6 +5,7 @@ item_id = {
         "main": dpg.generate_uuid(),
         "video_params": dpg.generate_uuid(),
         "settings": dpg.generate_uuid(),
+        "sucess_handle": dpg.generate_uuid(),
 
     },
     "file_dialogs": {

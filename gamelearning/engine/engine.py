@@ -31,14 +31,14 @@ class Engine:
     def video_to_frames(self, video_params: dict):
         self._delete_files_in(str(self._video_frames_path))
 
-        # video_handler = VideoToImages(video_path=video_params["video_path"],
-        #                               output_dir=str(self._video_frames_path),
-        #                               firts_seconds_to_skip=int(video_params["begining_skip"]),
-        #                               last_seconds_to_skip=int(video_params["end_skip"]),
-        #                               every_n_seconds=int(video_params["every_n_second"]))
-        #
-        # video_handler.extract_frames()
-        # video_handler.release_capture()
+        video_handler = VideoToImages(video_path=video_params["video_path"],
+                                      output_dir=str(self._video_frames_path),
+                                      firts_seconds_to_skip=int(video_params["begining_skip"]),
+                                      last_seconds_to_skip=int(video_params["end_skip"]),
+                                      every_n_seconds=int(video_params["every_n_second"]))
+
+        video_handler.extract_frames()
+        video_handler.release_capture()
 
         self._add_game_title_if_not_extists(video_params)
 

@@ -84,6 +84,12 @@ class GUIHandler:
             dpg.configure_item(item_id["input_text"]["video_params_error"], show=True)
             return False
 
+    def _show_sucess_window(self):
+        dpg.configure_item(item_id["windows"]["sucess_handle"], show=True)
+
+    def _close_sucess_window(self):
+        dpg.configure_item(item_id["windows"]["sucess_handle"], show=False)
+
 
 class GUItoEngine(GUIHandler):
 
@@ -97,5 +103,12 @@ class GUItoEngine(GUIHandler):
         if self._validate_params(video_params):
             self._engine.video_to_frames(video_params)
             self._engine.load_images()
+
+            self._show_sucess_window()
+
+    def handle_images(self, sender, value):
+        print("OK")
+        self._close_sucess_window()
+
 
 
