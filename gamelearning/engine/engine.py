@@ -6,8 +6,8 @@ from gamelearning.engine.types import HandeledImage
 from gamelearning.config import *
 from gamelearning.settings import Settings, SETTINGS_FILE
 
-from .handlers import ImageHandler, ImageLoader
-from .transformators import VideoToImages
+from .handlers import ImageHandler, ImageLoader, Deduplicator
+from .transformators import VideoToImages, PaddleModel
 from .database import *
 
 
@@ -24,19 +24,21 @@ class Engine:
 
         self._ih = ImageHandler()
 
+        self._current_game = None
+
         self._make_user_dir()
 
     def video_to_frames(self, video_params: dict):
         self._delete_files_in(str(self._video_frames_path))
 
-        video_handler = VideoToImages(video_path=video_params["video_path"],
-                                      output_dir=str(self._video_frames_path),
-                                      firts_seconds_to_skip=int(video_params["begining_skip"]),
-                                      last_seconds_to_skip=int(video_params["end_skip"]),
-                                      every_n_seconds=int(video_params["every_n_second"]))
-
-        video_handler.extract_frames()
-        video_handler.release_capture()
+        # video_handler = VideoToImages(video_path=video_params["video_path"],
+        #                               output_dir=str(self._video_frames_path),
+        #                               firts_seconds_to_skip=int(video_params["begining_skip"]),
+        #                               last_seconds_to_skip=int(video_params["end_skip"]),
+        #                               every_n_seconds=int(video_params["every_n_second"]))
+        #
+        # video_handler.extract_frames()
+        # video_handler.release_capture()
 
         self._add_game_title_if_not_extists(video_params)
 
@@ -45,11 +47,23 @@ class Engine:
         il.load_images_path_and_name(path=str(self._video_frames_path))
         self._images = il.get_image_objects()
 
+    def extract_images_text(self):
+        pm = PaddleModel()
+        pm.handle(self._images)
+
+    def deduplicate(self):
+        dd = Deduplicator()
+        dd.deduplicate(self._images)
+
+    def save_images(self):
+        self._ih.draw_boxes()
+        self._ih.save(path=str(self._images_path), draw_boxes=True)
+
     def _add_game_title_if_not_extists(self, video_params):
         game_title = video_params["game_title"]
         game = Games.get_or_create(title=game_title)
-        print(game[0])
 
+        self._current_game = game
 
     @staticmethod
     def _delete_files_in(path: str):
