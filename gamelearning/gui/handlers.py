@@ -1,4 +1,5 @@
 import dearpygui.dearpygui as dpg
+import os
 
 from gamelearning.engine import Engine
 
@@ -91,6 +92,18 @@ class GUIHandler:
         dpg.configure_item(item_id["windows"]["sucess_handle"], show=False)
 
 
+    def _add_and_load_image(self, image_path, parent=None):
+        width, height, channels, data = dpg.load_image(image_path)
+
+        with dpg.texture_registry() as reg_id:
+            texture_id = dpg.add_static_texture(width, height, data, parent=reg_id)
+
+        if parent is None:
+            return dpg.add_image(texture_id, width=300, height=300)
+        else:
+            return dpg.add_image(texture_id, parent=parent, width=300, height=300)
+
+
 class GUItoEngine(GUIHandler):
 
     def __init__(self, engine: Engine):
@@ -109,6 +122,26 @@ class GUItoEngine(GUIHandler):
     def handle_images(self, sender, value):
         print("OK")
         self._close_sucess_window()
+
+    def load_images_from(self, sender: str, value, user_data):
+        path = ""
+        files = []
+        # if sender == item_id["buttons"]["load_images"]:
+        path = self._engine.video_frames_path
+
+        print(path)
+
+        for filename in os.listdir(path):
+            file_path = os.path.join(path, filename)
+            files.append(file_path)
+
+        print(files)
+
+        for image in files:
+            self._add_and_load_image(image_path=image, parent=item_id["groups"]["static_images"])
+
+        return files
+
 
 
 

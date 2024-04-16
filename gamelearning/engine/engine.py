@@ -76,6 +76,10 @@ class Engine:
         Path(self._video_frames_path).mkdir(parents=True, exist_ok=True)
         Path(self._images_path).mkdir(parents=True, exist_ok=True)
 
+    @property
+    def video_frames_path(self):
+        return self._video_frames_path
+
 
 def run():
     ...

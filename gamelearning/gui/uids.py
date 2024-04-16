@@ -6,6 +6,8 @@ item_id = {
         "video_params": dpg.generate_uuid(),
         "settings": dpg.generate_uuid(),
         "sucess_handle": dpg.generate_uuid(),
+        "images": dpg.generate_uuid(),
+        "education": dpg.generate_uuid(),
 
     },
     "file_dialogs": {
@@ -23,12 +25,25 @@ item_id = {
         "save_settings": dpg.generate_uuid(),
         "to_frames_press_button_processing": dpg.generate_uuid(),
         "chose_video_path": dpg.generate_uuid(),
+        "load_images": dpg.generate_uuid(),
+        "images_back": dpg.generate_uuid(),
+        "images_next": dpg.generate_uuid(),
     },
     "input_text": {
         "begining_skip": dpg.generate_uuid(),
         "end_skip": dpg.generate_uuid(),
         "every_n_second": dpg.generate_uuid(),
         "video_params_error": dpg.generate_uuid(),
+
+    },
+    "tabs": {
+        "education": dpg.generate_uuid(),
+        "images": dpg.generate_uuid(),
+    },
+    "groups": {
+        "images": dpg.generate_uuid(),
+        "static_images": dpg.generate_uuid(),
+        "images_buttons": dpg.generate_uuid(),
 
     },
 }

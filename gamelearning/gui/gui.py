@@ -1,4 +1,5 @@
 import dearpygui.dearpygui as dpg
+import dearpygui_extend as dpge
 
 dpg.create_context()
 dpg.create_viewport(title="English through games")
@@ -32,6 +33,15 @@ class GUI:
                 with dpg.menu(label="File"):
                     self._make_settings()
                     self._make_video_params()
+
+            with dpg.tab_bar(tag="tabs"):
+                self._make_images_window()
+                self._make_education_window()
+
+                # dpg.add_menu_item(label="Images",
+                #                   callback=lambda: self._set_primary_window(item_id["windows"]["images"]))
+                # dpg.add_menu_item(label="Education",
+                #                   callback=lambda: self._set_primary_window(item_id["windows"]["education"]))
 
     def _make_settings(self):
         dpg.add_menu_item(label="Settings", callback=lambda: dpg.show_item(settings))
@@ -97,6 +107,34 @@ class GUI:
 
             self._make_popup_window()
 
+    def _make_education_window(self):
+        with dpg.tab(tag=item_id["tabs"]["education"], label="Education"):
+            with dpg.child_window(tag=item_id["windows"]["education"]):
+                ...
+
+    def _make_images_window(self):
+        with dpg.tab(tag=item_id["tabs"]["images"], label="Images"):
+            with dpg.child_window(tag=item_id["windows"]["images"]):
+                dpg.add_button(tag=item_id["buttons"]["load_images"], label="Load images",
+                               callback=self._gui_to_engine.load_images_from)
+
+                with dpg.group(tag=item_id["groups"]["images"]):
+                    with dpg.group(tag=item_id["groups"]["static_images"], horizontal=True):
+
+
+                    with dpg.group(tag=item_id["groups"]["images_buttons"], horizontal=True):
+                        dpg.add_button(tag=item_id["buttons"]["images_back"], label="Back",
+                                       callback=...)
+
+                        dpg.add_button(tag=item_id["buttons"]["images_next"], label="Next",
+                                       callback=...)
+
+
+
+    def _set_primary_window(self, tag: str):
+        dpg.configure_item(item=tag, show=True)
+        dpg.set_primary_window(window=tag, value=True)
+
     def _show_video_chose_dialog(self):
         if dpg.does_item_exist(item_id["file_dialogs"]["video_select"]):
             dpg.delete_item(item_id["file_dialogs"]["video_select"])
@@ -110,7 +148,7 @@ class GUI:
 
     def _make_popup_window(self):
         with dpg.window(tag=item_id["windows"]["sucess_handle"], label="Sucess",
-                        modal=True, show=False, no_title_bar=True) as popup:
+                        modal=True, show=False, no_title_bar=True,) as popup:
             dpg.add_text("Video handle ended with sucess! " +
                          "Do you want to continuee with images handle?")
             dpg.add_separator()
